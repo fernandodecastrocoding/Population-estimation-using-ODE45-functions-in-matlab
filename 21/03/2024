@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATLAB Population Model Using Differential Equations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            font-size: 1.1em;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-left: 3px solid #4CAF50;
+            overflow-x: auto;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MATLAB Population Model Using Differential Equations</h1>
+    </header>
+    
+    <div class="container">
+        <section id="intro">
+            <h2>Introduction to the Population Model</h2>
+            <p>This page demonstrates how to use MATLAB to model population dynamics in a controlled enviroment. We will use  differential equation models to represent different population scenarios and solve these using MATLAB's <code>ode45</code> function.</p>
+        </section>
+        
+        <section id="parameters">
+            <h2>Model Parameters</h2>
+            <p>The following parameters are used in each model:</p>
+            <ul>
+                <li><strong>Growth rate (a):</strong> 0.8</li>
+                <li><strong>Mortality rate (b):</strong> 0.00015</li>
+                <li><strong>Initial population (P0):</strong> 450 Deer </li>
+            </ul>
+        </section>
+        
+        <section id="differential-equations">
+            <h2>Defining the Differential Equations</h2>
+            <p>We use models to represent population changes over time:</p>
+            <ul>
+                <li><strong>Model 1:</strong> Basic population growth model.</li>
+                
+            </ul>
+        </section>
+        
+        <section id="code">
+            <h2>MATLAB Code</h2>
+            <p> This code into MATLAB to simulate the population changes over time using the integrated matlab function ode45.</p>
+            <pre><code>% Model Parameters
+a = 0.8;          % Population growth rate
+b = 0.00015;      % Mortality rate
+P0 = 450;         % Initial population
+
+% Define time range for the simulation
+tspan = 0:1:40;
+
+% Define the differential equation:
+% Model 1: Original equation
+dPdt1 = @(t, P) a * P - b * P^2;
+
+
+% Solve the ODEs using ode45 (Runge-Kutta)
+[t1, P1] = ode45(dPdt1, [tspan(1) tspan(end)], P0);  % Original model
+
+
+% Interpolate solutions at common time points (tspan)
+P1_interp = interp1(t1, P1, tspan);
+
+% Create a table to compare results
+resultsTable = table(tspan', P1_interp',...
+    'VariableNames', {'Time', 'Ode_Population', });
+
+% Display the table
+disp(resultsTable);
+
+% Plot results for visualization
+figure;
+plot(tspan, P1_interp, '-o', 'LineWidth', 2); hold on;
+
+xlabel('Time (t)');
+ylabel('Deer Population (P(t))');
+title('Comparison of Population Models in the Pond');
+legend('Original Model', ', 'Location', 'best');
+grid on;
+            </code></pre>
+        </section>
+        
+        <section id="explanation">
+            <h2>Explanation of the Code</h2>
+            <p>This code defines three models using different equations to simulate population dynamics in a pond:</p>
+            <ul>
+                <li><strong>Model 1:</strong> Uses the original equation, assuming normal growth and mortality rates.</li>
+              
+            </ul>
+            <p>Each model is solved using the <code>ode45</code> function, and the results are interpolated to provide consistent time points. Finally, the code plots the population over time for each model.</p>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2021 MATLAB Learning Guide. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
